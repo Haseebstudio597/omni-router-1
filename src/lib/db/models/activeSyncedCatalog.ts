@@ -4,6 +4,7 @@ import {
 } from "@omniroute/open-sse/config/providerRegistry";
 import { getSearchProvider } from "@omniroute/open-sse/config/searchRegistry.ts";
 import { PROVIDER_ID_TO_ALIAS } from "@omniroute/open-sse/config/providerModels.ts";
+import { isCursorGrok47MaxEffortDropped } from "@omniroute/open-sse/utils/cursorAgentProtobuf/grok47MaxEffort.ts";
 import {
   ensureCursorAutoCatalogEntry,
   ensureCursorGrokEffortAliases,
@@ -147,7 +148,9 @@ export function enrichCursorCatalog(
   if (models.length === 0) return models;
   if (providerId !== "cursor" && providerId !== "cursor-api") return models;
   const withAuto = ensureCursorAutoCatalogEntry(models);
-  return includeEffortAliases ? ensureCursorGrokEffortAliases(withAuto) : withAuto;
+  return includeEffortAliases
+    ? ensureCursorGrokEffortAliases(withAuto, isCursorGrok47MaxEffortDropped())
+    : withAuto;
 }
 
 /**

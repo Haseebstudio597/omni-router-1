@@ -1,0 +1,4 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "cross-env OMNIROUTE_SKIP_STANDALONE=1 npm run build"
+}
